@@ -13,7 +13,7 @@ fruit_data_frame=pandas.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.c
 fruit_data_frame=fruit_data_frame.set_index('Fruit');
 
 #Adding pick up list to customize smoothie
-streamlit.multiselect('Pick up some fruits:', list(fruit_data_frame.index))
+streamlit.multiselect('Pick up some fruits:', list(fruit_data_frame.index),['Avocado','Strawberries'])
 
 #Display dataframe
 streamlit.dataframe(fruit_data_frame)
