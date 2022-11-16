@@ -18,3 +18,8 @@ display_fruits=fruit_data_frame.loc[display_fruits]
 
 #Display dataframe
 streamlit.dataframe(display_fruits)
+
+
+import requests
+fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
+streamlit.text(fruityvice_response)
