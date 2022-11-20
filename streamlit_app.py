@@ -1,7 +1,7 @@
 import streamlit
 import pandas
 import snowflake.connector
-
+import requests
 from urllib.error import URLError
 
 streamlit.title('My Mom\'s New Healthy Diner')
@@ -25,16 +25,25 @@ streamlit.dataframe(display_fruits)
 
 #New section to display Fruityvice api response
 streamlit.header("Fruityvice Fruit Advice!")
-fruit_choice = streamlit.text_input("What fruit information would you like ?","kiwi")
-streamlit.write("The user entered" , fruit_choice)
-import requests
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" +fruit_choice)
-#streamlit.text(fruityvice_response.json())
+try:
+  fruit_choice: = streamlit.text_input("What fruit information would you like ?")
+  if not fruit_choice:
+    streamlit.write("Please select a fruit to get information")
+  else:
+    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" +fruit_choice)
+    # Assigning Normalized json to fruityvice_normalized
+    fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+    streamlit.dataframe(fruityvice_normalized)
+except URLError as e:
+    streamlit.error()
+    streamlit.write("The user entered" , fruit_choice)
 
-# Assigning Normalized json to fruityvice_normalized
-fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
-# Assign data from fruityvice_normalized variable to daata frame and display
-streamlit.dataframe(fruityvice_normalized)
+  
+  #streamlit.text(fruityvice_response.json())
+
+  
+  # Assign data from fruityvice_normalized variable to daata frame and display
+  
 
 
 
