@@ -1,5 +1,9 @@
 import streamlit
 import pandas
+import snowflake.connector
+
+from urllib.error import URLError
+
 streamlit.title('My Mom\'s New Healthy Diner')
 streamlit.header('Breakfast Favorites')
 streamlit.text('🥣Omega 3 & Blueberry Oatmeal')
@@ -32,7 +36,7 @@ fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 # Assign data from fruityvice_normalized variable to daata frame and display
 streamlit.dataframe(fruityvice_normalized)
 
-import snowflake.connector
+
 
 streamlit.stop()
 
